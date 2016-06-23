@@ -136,5 +136,9 @@ class Comments {
         }
     }
 
+
+    public static function imageUpload (){
+
+    }
 }
 ob_flush();

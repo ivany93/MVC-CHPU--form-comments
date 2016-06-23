@@ -32,32 +32,35 @@ class CommentsController
 
     public function actionAdd()
     {
-        $path = 'resource/image/';
-        $tmp_path = '';
-        $types = array('image/gif', 'image/png', 'image/jpeg');
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            print_r($_FILES['picture']['type']);
-            if (!in_array($_FILES['picture']['type'], $types)){
-                die('<p>Запрещённый тип файла. <a href="/">Назад</a></p>');
-            }
-            $nameImg = Comments::resize($_FILES['picture']);
-            if (!@copy($tmp_path . $nameImg, $path . $nameImg))
-                echo '<p>Что-то пошло не так.</p>';
-            else
-                header('Location:/');
-                echo '<p>Загрузка прошла удачно <a href="' . $path . $_FILES['picture']['name'] . '">Посмотреть</a>.</p>';
-            unlink($tmp_path . $nameImg);
-            if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['text'])) {
-                $name = $_POST['name'];
-                $email = $_POST['email'];
-                $text = $_POST['text'];
-                $img = $nameImg;
-                Comments::addNewComment($name, $email, $text, $img);
-                unset($_POST['text']);
-                unset($_POST['email']);
-                unset($_POST['name']);
+            $imgUrl = null;
+            $path = 'tmp/';
+            $tmp_path = '';
+            $types = array('image/gif', 'image/png', 'image/jpeg');
+            if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_FILES['picture']['size']>0) {
+                print_r($_FILES['picture']);
+                if (!in_array($_FILES['picture']['type'], $types)){
+                    header('Location:/comments/error');
+                }
+                $nameImg = Comments::resize($_FILES['picture']);
+                $imgUrl = $nameImg;
+                if (!@copy($tmp_path . $nameImg, $path . $nameImg))
+                    header('Location:/comments/error');
+                else
+                    header('Location:/');
+                unlink($tmp_path . $nameImg);
+
 
             }
+
+        if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['text'])) {
+            $name = $_POST['name'];
+            $email = $_POST['email'];
+            $text = $_POST['text'];
+            $img = $imgUrl;
+            Comments::addNewComment($name, $email, $text, $img);
+            unset($_POST['text']);
+            unset($_POST['email']);
+            unset($_POST['name']);
 
         }
     }
@@ -76,4 +79,8 @@ class CommentsController
         return true;
     }
 
+
+    public function actionError (){
+        require_once (ROOT.'/view/comments/error.php');
+    }
 }

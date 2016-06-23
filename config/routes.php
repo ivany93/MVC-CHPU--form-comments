@@ -11,6 +11,7 @@ return array(
     'admin/exit' => 'users/exit',
     'admin' => 'users/login',
     'comments/add' => 'comments/add',
+    'comments/error' => 'comments/error',
     'comments/sort/([0-9]+)' => 'comments/sort/$1',
     'comments/publisher/([0-9]+)/([0-9]+)' => 'comments/publisher/$1/$2',
     'comments/pull/([0-9]+)' => 'comments/pull/$1',

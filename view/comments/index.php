@@ -33,7 +33,7 @@
     <?php foreach($newsList as $one){?>
         <div style="background-color: #f3f9e4" align="center">
             <div class="row">
-                <div class="span3"><img src="../../resource/image/<?= $one['img']?>"></div>
+                <div class="span3"><img src="../../tmp/<?= $one['img']?>"></div>
                 <div class="span1"><?= $one['title'] ?></div>
                 <div class="span6"><?=$one['text']?></div>
                 <div class="span1"><?=$one['date']?></div>
@@ -59,9 +59,12 @@
             <textarea  class="form-control" rows="5" name="text" id="text"> </textarea>
             <br>
     <input type=file name=picture id="picture">
+    <br>
+   <p> <button id="prevView" class="btn btn-primary btn-mini" data-toggle="modal" data-target="#myModal"> Посмотреть  </button></p>
     <button type="submit" class="btn-success" id="buttonSubmit"> Отправить</button>
+
 </form>
-    <button id="prevView" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"> Посмотреть  </button>
+
 </div>
 </div>
 

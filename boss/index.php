@@ -34,7 +34,7 @@
 
 <div class="container" align="center">
     <div class="row">
-        <div class="span2"><img src="../resource/image/<?= $one['img']?>" width="100px"></div>
+        <div class="span2"><img src="../tmp/<?= $one['img']?>" width="100px"></div>
                 <div class="span1"><?=$one['date']?></div>
                 <div class="span2"><?= $one['title'] ?></div>
                 <div class="span2"><?=$one['text']?></div>
